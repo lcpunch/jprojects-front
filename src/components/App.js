@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Menu from './Menu';
+import NavigationBar from './NavigationBar';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Menu />
+        <NavigationBar />
       </div>
     );
   }

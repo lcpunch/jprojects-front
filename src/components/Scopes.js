@@ -1,8 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import { Navbar, ListGroup, ListGroupItem } from 'reactstrap';
 import '../css/styles.css';
 
 class Scopes extends Component {
+
+  componentDidMount() {
+    this.props.fetchScopes();
+  }
+
+  renderScopes() {
+    return this.props.scopes.map(scope => {
+      return (
+        <ListGroupItem className="text-center">
+          {scope}
+        </ListGroupItem>
+      );
+    })
+  }
+
+  renderAddButton() {
+    return (
+      <ListGroupItem className="text-center">
+        <a className="waves-effect waves-teal btn-flat">Add</a>
+      </ListGroupItem>
+    );
+  }
 
   render() {
     return(
@@ -12,15 +36,18 @@ class Scopes extends Component {
         </Navbar>
         <div>
           <ListGroup>
-            <ListGroupItem className="text-center add-button">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </ListGroupItem>
+            {this.renderAddButton()}
           </ListGroup>
         </div>
       </div>
     );
   }
-
 }
 
-export default Scopes;
+function mapStateToProps(state) {
+  return {
+    scopes: state.scopes
+  }
+}
+
+export default connect(mapStateToProps, actions)(Scopes);

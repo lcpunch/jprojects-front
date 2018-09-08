@@ -1,14 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxPromise from 'redux-promise';
+import reducers from '../reducers';
 import NavigationBar from './NavigationBar';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <NavigationBar />
-      </div>
-    );
-  }
-}
+export default ({ children, initialState = {} }) => {
 
-export default App;
+  const store = createStore(
+    reducers,
+    initialState,
+    applyMiddleware(reduxPromise)
+  );
+
+  return(
+    <Provider store={store}>
+      <NavigationBar />
+    </Provider>
+  );
+};
